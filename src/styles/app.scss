@@ -1,0 +1,9 @@
+.app {
+  flex-grow: 1;
+  &_wrapper{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: lightblue;
+  }
+}
