@@ -1,0 +1,12 @@
+{
+  "en": {
+    "home": "Home",
+    "placeholder": "Enter movie title",
+    "searchButton": "Search"
+  },
+  "ru": {
+    "home": "Главная",
+    "placeholder": "Введите название",
+    "searchButton": "Найти"
+  }
+}

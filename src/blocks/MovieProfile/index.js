@@ -8,29 +8,32 @@ import {clearState, getMovieData} from "store/actions/movie.actions";
 import {API_METHODS} from "constants/api-methods";
 import styles from "constants/styles";
 
+import local from './local'
 import imgPlaceholder from './placeholder-movieimage.jpg'
+
 
 const {Item: Characteristic} = Descriptions;
 
-const renderCharacteristic = ({item, movieState}) => {
+const renderCharacteristic = ({item, movieState, localState}) => {
   switch (item) {
     case 'Response':
     case 'Poster':
       return null;
     case 'Ratings':
       return (
-        <Characteristic label={item} key={item}>
+        <Characteristic label={local[localState][item]} key={item}>
           {movieState[item].map(rating => (
             <Fragment key={rating.Source}>{rating.Source}: {rating.Value} <br/></Fragment>
           ))}
         </Characteristic>);
     default:
-      return <Characteristic label={item} key={item}>{movieState[item]}</Characteristic>
+      return <Characteristic label={local[localState][item]} key={item}>{movieState[item]}</Characteristic>
   }
 };
 
 class MovieProfile extends Component {
   static propTypes = {
+    localState: PropTypes.string,
     movieState: PropTypes.object,
     getMovieData: PropTypes.func,
     clearState: PropTypes.func,
@@ -47,7 +50,7 @@ class MovieProfile extends Component {
   }
 
   render() {
-    const {movieState = {}} = this.props;
+    const {movieState, localState} = this.props;
     const {gutter} = styles;
 
     const {
@@ -83,8 +86,8 @@ class MovieProfile extends Component {
                 bordered
                 column={{ lg: 2, md: 1 }}
               >
-                {Object.keys(tailMovieState).map(item => renderCharacteristic({item: item, movieState}))}
-                {renderCharacteristic({item: 'Plot', movieState})}
+                {Object.keys(tailMovieState).map(item => renderCharacteristic({item: item, movieState, localState}))}
+                {renderCharacteristic({item: 'Plot', movieState, localState})}
               </Descriptions>
             </Fragment>
           ) : null}
@@ -95,8 +98,9 @@ class MovieProfile extends Component {
 }
 
 const mapStateToProps = ({
-                           movieState
-                         }) => ({movieState});
+                           movieState,
+                           localState,
+                         }) => ({movieState, localState});
 const mapDispatchToProps = dispatch => ({
   getMovieData: bindActionCreators(getMovieData, dispatch),
   clearState: bindActionCreators(clearState, dispatch),
