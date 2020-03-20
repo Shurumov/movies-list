@@ -4,8 +4,6 @@ let axiosClient = null;
 
 class AxiosClient {
   constructor(props = {}) {
-    this.logoutSubscribers = [];
-
     Object.keys(props).forEach((propName) => {
       this[`_${propName}`] = props[propName];
     });
@@ -19,22 +17,19 @@ class AxiosClient {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       };
+      const params = {
+        apiKey: this._API_KEY
+      };
       return {
         ...config,
         headers,
+        params,
       };
     });
 
     localAxios.interceptors.response.use(
       (response) => response.data,
-      async (error) => {
-        const { response = {} } = error;
-
-        return {
-          status: response.status,
-          ...response.data,
-        };
-      },
+      async (error) => error,
     );
 
     this._client = localAxios;

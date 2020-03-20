@@ -9,11 +9,11 @@ import {store} from 'store';
 import {init} from 'utils/api';
 import config from 'config';
 
-const {API_DOMAIN} = config;
+const {API_DOMAIN, API_KEY} = config;
 
 let API_URL = `${API_DOMAIN}`;
 
-init({store, API_URL});
+init({store, API_URL, API_KEY});
 
 ReactDOM.render(
   <Provider store={store}>

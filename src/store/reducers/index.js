@@ -1,7 +1,9 @@
 import {combineReducers} from 'redux';
 
-import moviesList from './movies-list.reducer';
+import moviesListState from './movies-list.reducer';
+import processingState from './processing.reducer'
 
 export default () => combineReducers({
-  moviesList,
+  moviesListState,
+  processingState
 })

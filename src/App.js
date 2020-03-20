@@ -1,10 +1,11 @@
 import React from 'react';
+import { Header } from 'blocks'
 
 function App() {
   return (
     <div className="app_wrapper">
       <div className="app">
-        test
+        <Header/>
       </div>
     </div>
   );
