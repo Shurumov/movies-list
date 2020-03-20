@@ -1,7 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from 'prop-types';
 import {Card} from 'antd';
-import styles from 'constants/styles'
 
 const {Meta} = Card;
 
@@ -14,8 +13,7 @@ export class MovieCard extends PureComponent {
   };
 
   render() {
-    const {title, year, onClick, poster} = this.props;
-    const {gutter} = styles;
+    const {title, year, onClick, poster, style} = this.props;
 
     return (
       <Card
@@ -29,10 +27,7 @@ export class MovieCard extends PureComponent {
           />
         ) : null
         }
-        style={{
-          marginBottom: gutter,
-          width: '100%'
-        }}
+        style={style}
       >
         <Meta
           title={title}

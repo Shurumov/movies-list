@@ -1,16 +1,16 @@
 import { changeProcessing } from 'store/actions/processing.actions';
 
-export const MOVIES_LIST_ACTION_TYPES = {
-  MOVIES_LIST_SET_STATE: 'MOVIES_LIST_SET_STATE',
-  MOVIES_LIST_CLEAR_STATE: 'MOVIES_LIST_CLEAR_STATE'
+export const MOVIE_ACTION_TYPES = {
+  MOVIE_SET_STATE: 'MOVIE_SET_STATE',
+  MOVIE_CLEAR_STATE: 'MOVIE_CLEAR_STATE'
 };
 
-export const setData = movies => ({
-  type: MOVIES_LIST_ACTION_TYPES.MOVIES_LIST_SET_STATE,
-  payload: movies
+export const setData = news => ({
+  type: MOVIE_ACTION_TYPES.MOVIE_SET_STATE,
+  payload: news
 });
 
-export const getMoviesList = (methodUrl) => {
+export const getMovieData = (methodUrl) => {
   return async (dispatch, getState, getAxios) => {
     const axios = getAxios();
 
@@ -32,6 +32,6 @@ export const getMoviesList = (methodUrl) => {
 
 export const clearState = () => {
   return {
-    type: MOVIES_LIST_ACTION_TYPES.MOVIES_LIST_CLEAR_STATE,
+    type: MOVIE_ACTION_TYPES.MOVIE_CLEAR_STATE,
   };
 };

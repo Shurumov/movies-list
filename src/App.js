@@ -1,5 +1,5 @@
 import React from 'react';
-import {Header, MoviesList} from 'blocks'
+import {Header, MoviesList, MovieProfile} from 'blocks'
 import {
   Switch,
   Route,
@@ -18,6 +18,11 @@ function App() {
               exact
               path={ROUTES.HOME}
               component={MoviesList}
+            />
+            <Route
+              exact
+              path={ROUTES.MOVIE_ID(':id')}
+              component={MovieProfile}
             />
           </Switch>
         </div>
