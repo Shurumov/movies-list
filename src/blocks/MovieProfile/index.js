@@ -2,14 +2,32 @@ import React, {Component, Fragment} from "react";
 import PropTypes from 'prop-types';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-
-import {Row, Col, Empty, Descriptions} from 'antd';
+import {Row, Col, Descriptions} from 'antd';
 
 import {clearState, getMovieData} from "store/actions/movie.actions";
 import {API_METHODS} from "constants/api-methods";
 import styles from "constants/styles";
 
+import imgPlaceholder from './placeholder-movieimage.jpg'
+
 const {Item: Characteristic} = Descriptions;
+
+const renderCharacteristic = ({item, movieState}) => {
+  switch (item) {
+    case 'Response':
+    case 'Poster':
+      return null;
+    case 'Ratings':
+      return (
+        <Characteristic label={item} key={item}>
+          {movieState[item].map(rating => (
+            <Fragment key={rating.Source}>{rating.Source}: {rating.Value} <br/></Fragment>
+          ))}
+        </Characteristic>);
+    default:
+      return <Characteristic label={item} key={item}>{movieState[item]}</Characteristic>
+  }
+};
 
 class MovieProfile extends Component {
   static propTypes = {
@@ -24,7 +42,7 @@ class MovieProfile extends Component {
   }
 
   componentWillUnmount() {
-    const { clearState } = this.props;
+    const {clearState} = this.props;
     clearState();
   }
 
@@ -35,6 +53,7 @@ class MovieProfile extends Component {
     const {
       Title,
     } = movieState;
+    const {Plot, ...tailMovieState} = movieState;
     return (
       <Row gutter={gutter}>
         <Col
@@ -43,7 +62,7 @@ class MovieProfile extends Component {
           xl={6}
         >
           <img
-            src={movieState.Poster}
+            src={movieState.Poster || imgPlaceholder}
             alt={movieState.Title}
             style={{
               width: '100%',
@@ -57,16 +76,18 @@ class MovieProfile extends Component {
           lg={16}
           xl={18}
         >
-        {Object.keys(movieState).length > 0 ? (
-          <Descriptions title={Title}>
-            {Object.keys(movieState).map(item => {
-              if (['Ratings', 'Plot', 'Poster', 'Response'].includes(item)) {
-                return null;
-              }
-              return <Characteristic label={item} key={item}>{movieState[item]}</Characteristic>
-            })}
-          </Descriptions>
-        ) : null}
+          {Object.keys(movieState).length > 0 ? (
+            <Fragment>
+              <Descriptions
+                title={Title}
+                bordered
+                column={{ lg: 2, md: 1 }}
+              >
+                {Object.keys(tailMovieState).map(item => renderCharacteristic({item: item, movieState}))}
+                {renderCharacteristic({item: 'Plot', movieState})}
+              </Descriptions>
+            </Fragment>
+          ) : null}
         </Col>
       </Row>
     )
