@@ -23,13 +23,12 @@ class Header extends Component {
   render() {
     const {Search} = Input;
 
-    // const {authors, setSelectedAuthor} = this.props;
-
     return (
       <header className="header container">
         <Search
           enterButton="Search"
           onSearch={this.searchFilms}
+          placeholder="Enter movie title"
         />
       </header>
     )

@@ -17,9 +17,9 @@ export const getMoviesList = (methodUrl) => {
     dispatch(changeProcessing(true));
 
     const response = await axios.get(methodUrl);
-    dispatch(changeProcessing(false));
 
-    if (!response || response.Response) {
+    dispatch(changeProcessing(false));
+    if (!response || response.Response === "False") {
       alert(response.Error);
       return;
     }
