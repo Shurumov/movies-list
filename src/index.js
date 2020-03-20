@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
+import {
+  BrowserRouter
+} from "react-router-dom";
+
 import 'styles/index.scss'
 import 'antd/dist/antd.css';
 import App from './App';
@@ -17,6 +21,8 @@ init({store, API_URL, API_KEY});
 
 ReactDOM.render(
   <Provider store={store}>
-    <App/>
+    <BrowserRouter>
+      <App/>
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root'));
